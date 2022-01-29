@@ -1,8 +1,10 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { ref, computed, reactive } from 'vue'
 import { ElCascader } from "element-plus";
 import ChinaArea from './ChinaArea'
 import moment from "moment";
+import { CopyDocument } from '@element-plus/icons-vue'
+import useClipboard from 'vue-clipboard3'
 
 const props = { size: "small", isall: false, leave: 3 }
 const birthday = ref("1990-12-12") // 出生年月日
@@ -21,8 +23,7 @@ const handleSexChange = (value: string) => {
 }
 
 const handleBirthdayChange = (value: Date) => {
-  console.log(birthday.value)
-  console.log(moment(value).format("YYYYMMDD"))
+  console.log(value)
 }
 
 const disabledDate = (time: Date) => {
@@ -50,6 +51,18 @@ const idCard = computed(() => {
   return _source.concat(getVerify(_source))
 })
 
+const history = reactive({
+  arr: Array<string>()
+});
+
+const handleCopy = async () => {
+  let _index = history.arr.indexOf(idCard.value)
+  if (_index > -1) {
+    history.arr.splice(_index, 1)
+  }
+  history.arr.push(idCard.value)
+  await useClipboard().toClipboard(idCard.value)
+}
 </script>
 
 <template>
@@ -86,7 +99,20 @@ const idCard = computed(() => {
       </div>
     </el-main>
     <el-footer>
-      <el-input v-model="idCard" placeholder="Please input" />
+      <el-input type="text" v-model="idCard">
+        <template #prepend>身份证号：</template>
+      </el-input>
+      <div class="block">
+        <el-button type="primary" :icon="CopyDocument" @click="handleCopy">复制</el-button>
+      </div>
+      <el-card class="box-card block">
+        <template #header>
+          <div class="card-header">
+            <span>复制历史</span>
+          </div>
+        </template>
+        <div v-for="item in history.arr" :key="item" class="text item">{{ item }}</div>
+      </el-card>
     </el-footer>
   </el-container>
 </template>
@@ -98,5 +124,8 @@ const idCard = computed(() => {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+.block {
+  margin-top: 20px;
 }
 </style>

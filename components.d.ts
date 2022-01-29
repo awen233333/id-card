@@ -4,7 +4,8 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    Area: typeof import('./src/components/Area.vue')['default']
+    ElButton: typeof import('element-plus/es')['ElButton']
+    ElCard: typeof import('element-plus/es')['ElCard']
     ElCascaderPanel: typeof import('element-plus/es')['ElCascaderPanel']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
