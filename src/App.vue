@@ -38,8 +38,6 @@ function getVerify(value: string): string {
   return dict[total % 11]
 }
 
-
-
 const idCard = computed(() => {
   let _area: string = selected.value[2] // 前六位是地区码
   let _birthday: string = moment(birthday.value).format("YYYYMMDD") // 7 - 14 位是出生年月日
@@ -60,14 +58,15 @@ const idCard = computed(() => {
       <h1>身份证生成器</h1>
     </el-header>
     <el-main>
-      <el-cascader-panel
-        v-model="selected"
-        :options="options"
-        :props="props"
-        @change="handleChange"
-        ref="cascader"
-      />
-
+      <div class="block">
+        <el-cascader-panel
+          v-model="selected"
+          :options="options"
+          :props="props"
+          @change="handleChange"
+          ref="cascader"
+        />
+      </div>
       <div class="block">
         <span class="demonstration">出生年月日：</span>
         <el-date-picker
@@ -78,16 +77,16 @@ const idCard = computed(() => {
           @change="handleBirthdayChange"
         ></el-date-picker>
       </div>
-
-      <el-radio-group v-model="sex" @change="handleSexChange">
-        <el-radio :label="1">男</el-radio>
-        <el-radio :label="2">女</el-radio>
-      </el-radio-group>
+      <div class="block">
+        <span class="demonstration">性别：</span>
+        <el-radio-group v-model="sex" @change="handleSexChange">
+          <el-radio :label="1">男</el-radio>
+          <el-radio :label="2">女</el-radio>
+        </el-radio-group>
+      </div>
     </el-main>
     <el-footer>
-      <div class="test">
-        <el-input v-model="idCard" placeholder="Please input" />
-      </div>
+      <el-input v-model="idCard" placeholder="Please input" />
     </el-footer>
   </el-container>
 </template>

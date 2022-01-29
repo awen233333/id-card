@@ -6,18 +6,14 @@ declare module 'vue' {
   export interface GlobalComponents {
     Area: typeof import('./src/components/Area.vue')['default']
     ElCascaderPanel: typeof import('element-plus/es')['ElCascaderPanel']
-    ElCol: typeof import('element-plus/es')['ElCol']
     ElContainer: typeof import('element-plus/es')['ElContainer']
     ElDatePicker: typeof import('element-plus/es')['ElDatePicker']
-    ElDivider: typeof import('element-plus/es')['ElDivider']
     ElFooter: typeof import('element-plus/es')['ElFooter']
     ElHeader: typeof import('element-plus/es')['ElHeader']
     ElInput: typeof import('element-plus/es')['ElInput']
     ElMain: typeof import('element-plus/es')['ElMain']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
-    ElRow: typeof import('element-plus/es')['ElRow']
-    ElText: typeof import('element-plus/es')['ElText']
   }
 }
 
